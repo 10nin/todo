@@ -1,0 +1,28 @@
+{:duct.profile/base
+ {:duct.core/project-ns todo
+
+  :duct.router/ataraxy
+  {:routes {["/users"]
+            {[:post] [:todo.handler.users/create]
+             [:post "/login"] [:todo.handler.users/login]}
+            ["/articles"]
+            {[:get] [:todo.handler.articles/index]
+             [:post] [:todo.handler.articles/create]}}}
+
+  :todo.handler.users/create
+  {:db #ig/ref :duct.database/sql}
+  :todo.handler.users/login
+  {:db #ig/ref :duct.database/sql}
+  :todo.handler.articles/index
+  {:db #ig/ref :duct.database/sql}
+  :todo.handler.articles/create
+  {:db #ig/ref :duct.database/sql}}
+
+ :duct.profile/dev   #duct/include "dev"
+ :duct.profile/local #duct/include "local"
+ :duct.profile/prod  {}
+
+ :duct.module/logging {}
+ :duct.module.web/api
+ {}}
+
