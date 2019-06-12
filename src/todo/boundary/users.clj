@@ -4,7 +4,9 @@
             [buddy.hashers :as hashers]))
 
 (defprotocol Users
-  [create-user [db params]])
+  (create-user [db params])
+  (find-user-by-email [db params])
+  (authenticate-user [db params]))
 
 (extend-protocol Users
   duct.database.sql.Boundary
@@ -12,4 +14,12 @@
   (create-user [{:keys [spec]} {:keys [email password]}]
     (let [digest (hashers/derive password)
           result (jdbc/insert! spec :users {:email email :password_digest digest})]
-      (-> result first :id))))
+      (-> result first :id)))
+
+  (find-user-by-email [{:keys [spec]} email]
+    (first (jdbc/query spec ["SLECT * FROM users WHERE email=?" email])))
+
+  (authenticate-user [db {:keys [email password]}]
+    (if-let [user (find-user-by-email db email)]
+      (if (hashers/check password (:password_digest user))
+        (dissoc user :password_digest)))))
