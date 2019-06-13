@@ -17,7 +17,7 @@
       (-> result first :id)))
 
   (find-user-by-email [{:keys [spec]} email]
-    (first (jdbc/query spec ["SLECT * FROM users WHERE email=?" email])))
+    (first (jdbc/query spec ["SELECT * FROM users WHERE email=?" email])))
 
   (authenticate-user [db {:keys [email password]}]
     (if-let [user (find-user-by-email db email)]

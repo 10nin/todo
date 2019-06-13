@@ -12,7 +12,8 @@
   :todo.handler.users/create
   {:db #ig/ref :duct.database/sql}
   :todo.handler.users/login
-  {:db #ig/ref :duct.database/sql}
+  {:db #ig/ref :duct.database/sql
+   :jwt-secret #duct/env "JWT_SECRET"}
   :todo.handler.articles/index
   {:db #ig/ref :duct.database/sql}
   :todo.handler.articles/create
