@@ -12,6 +12,7 @@
                  [duct/module.web "0.7.0"]
                  [buddy/buddy-hashers "1.3.0"]
                  [duct/middleware.buddy "0.1.0"]
+                 [funcool/struct "1.3.0"]
                  [org.postgresql/postgresql "42.2.5"]]
   :plugins [[duct/lein-duct "0.12.1"]]
   :main ^:skip-aot todo.main
